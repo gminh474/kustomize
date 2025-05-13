@@ -2,3 +2,7 @@ resources:
 - deployment.yaml
 - service.yaml
 - ingress.yaml
+
+images:
+- name:  spring-petclinic:
+  newTag: 3.4.0-SNAPSHOT
