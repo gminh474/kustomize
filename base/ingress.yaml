@@ -7,8 +7,7 @@ spec:
   rules:
   - http:
       paths:
-      - host: localhost
-        pathType: Prefix
+      - pathType: Prefix
         path: /
         backend:
           service:
