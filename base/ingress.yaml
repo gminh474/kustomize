@@ -8,6 +8,7 @@ spec:
   - http:
       paths:
       - pathType: Prefix
+        host: *
         path: /
         backend:
           service:
