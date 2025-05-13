@@ -17,7 +17,7 @@ spec:
     spec: # specification du pod
       containers:
         - name: springboot
-          image: spring-petclinic:3.2.0-SNAPSHOT
+          image: spring-petclinic:3.4.0-SNAPSHOT
           startupProbe:
             httpGet:
               path: /actuator/health/readiness
