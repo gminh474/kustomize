@@ -11,7 +11,3 @@ patches:
       kind: Deployment
       name: clinic-deploy
   - path: patch-routing.yaml
-  - path: deployment.jsonpatch.yaml
-    target:
-      kind: Deployment
-      name: clinic-deploy
