@@ -1,13 +1,15 @@
 namespace: tp7-kustomize
+image: spring-petclinic:4.0.0-SNAPSHOT
 resources:
   - "../base"
 
 patches:
   - path: replicas.yaml
+    target:
+      kind: Deployment
+      name: clinic-deploy
+  - path: patch-routing.yaml
   - path: deployment.jsonpatch.yaml
     target:
       kind: Deployment
       name: clinic-deploy
-
-patchesStrategicMerge:
-  - patch-routing.yaml
