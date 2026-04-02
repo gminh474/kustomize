@@ -7,19 +7,38 @@ spec:
     spec:
       containers:
       - name: springboot
-        # 1. On modifie le chemin de l'application
         env:
         - name: SERVER_SERVLET_CONTEXT_PATH
           value: "/tp7"
-        # 2. On corrige les sondes pour qu'elles pointent vers le nouveau chemin
+        
+        # On écrase et on corrige la sonde de démarrage
+        startupProbe:
+          $patch: replace
+          httpGet:
+            path: /tp7/actuator/health/readiness
+            port: 8080
+          timeoutSeconds: 2
+          periodSeconds: 3
+          initialDelaySeconds: 2
+          failureThreshold: 10
+          
+        # On écrase et on corrige la sonde de vie
         livenessProbe:
+          $patch: replace
           httpGet:
-            path: /tp7/actuator/health
+            path: /tp7/actuator/health/liveness
             port: 8080
+          timeoutSeconds: 1
+          periodSeconds: 3
+          
+        # On écrase et on corrige la sonde de disponibilité
         readinessProbe:
+          $patch: replace
           httpGet:
-            path: /tp7/actuator/health
+            path: /tp7/actuator/health/readiness
             port: 8080
+          timeoutSeconds: 1
+          periodSeconds: 3
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -30,7 +49,6 @@ spec:
   - http:
       paths:
       - pathType: Prefix
-        # 3. On modifie le chemin de l'application
         path: /tp7
         backend:
           service:

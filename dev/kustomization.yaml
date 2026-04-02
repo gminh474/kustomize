@@ -1,13 +1,19 @@
 namespace: tp7-kustomize
+
 images:
   - name: spring-petclinic
+    newName: ghcr.io/gminh474/spring-petclinic
     newTag: 4.0.0-SNAPSHOT
+
 resources:
   - "../base"
 
 patches:
+  # Si replicas.yaml est un JSON Patch (op: replace) :
   - path: replicas.yaml
     target:
       kind: Deployment
       name: clinic-deploy
+      
+  # Si patch-routing.yaml est un YAML classique (Strategic Merge) :
   - path: patch-routing.yaml
