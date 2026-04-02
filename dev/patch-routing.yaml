@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clinic-deploy
+spec:
+  template:
+    spec:
+      containers:
+      - name: springboot
+        # 1. On modifie le chemin de l'application
+        env:
+        - name: SERVER_SERVLET_CONTEXT_PATH
+          value: "/tp7"
+        # 2. On corrige les sondes pour qu'elles pointent vers le nouveau chemin
+        livenessProbe:
+          httpGet:
+            path: /tp7/actuator/health
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /tp7/actuator/health
+            port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: clinic-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        # 3. On modifie le chemin de l'application
+        path: /tp7

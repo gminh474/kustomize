@@ -1,0 +1,13 @@
+namespace: tp7-kustomize
+resources:
+  - "../base"
+
+patches:
+  - path: replicas.yaml
+  - path: deployment.jsonpatch.yaml
+    target:
+      kind: Deployment
+      name: clinic-deploy
+
+patchesStrategicMerge:
+  - patch-routing.yaml
