@@ -1,5 +1,7 @@
 namespace: tp7-kustomize
-image: spring-petclinic:4.0.0-SNAPSHOT
+images:
+  - name: spring-petclinic
+    newTag: 4.0.0-SNAPSHOT
 resources:
   - "../base"
 
