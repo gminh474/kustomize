@@ -32,3 +32,8 @@ spec:
       - pathType: Prefix
         # 3. On modifie le chemin de l'application
         path: /tp7
+        backend:
+          service:
+            name: clinic-service
+            port:
+              number: 8080
